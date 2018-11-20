@@ -9,6 +9,8 @@ public class TCPClient{
     public static void main(String[] args){
         try {
             System.out.print("[ Conectando com o Servidor TCP    ..................  ");
+            //IP e PORT do destino
+            //Neste processo de criação de SOCKET o processo fica aguardando a conexão do servidor de destino
             Socket sock = new Socket("127.0.0.1", 3300);
             System.out.println("[OK] ]");
             
@@ -20,6 +22,16 @@ public class TCPClient{
             System.out.print("[ Enviando mensagem    ..............................  ");
             os.write(buf);
             System.out.println("[OK] ]");
+            
+            byte[] bufReceive = new byte[20]; // buffer de recepção
+
+            System.out.print("[ Aguardando recebimento de mensagem   ..............  ");
+            is.read(bufReceive); // Operação bloqueante (aguardando chegada de dados)
+            System.out.println("[OK] ]");
+            
+            String msgReceive = new String(bufReceive); // Mapeando vetor de bytes recebido para String
+            
+            System.out.println("  Mensagem recebida: " + msgReceive);
         }catch(Exception e){System.out.println(e);}    
         System.out.println("[ FIM ]");
     }

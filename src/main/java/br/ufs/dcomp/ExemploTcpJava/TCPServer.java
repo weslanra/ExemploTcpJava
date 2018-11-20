@@ -10,7 +10,9 @@ public class TCPServer{
         
         try {
             System.out.print("[ Iniciando Servidor TCP    .........................  ");
+            // parametros do méto ServerSockert(porta, número de conexões, IP que será escutado)
             ServerSocket ss = new ServerSocket(3300, 5, InetAddress.getByName("127.0.0.1"));
+            //ServerSockert faz três chamadas: SOCKET - BIND - LISTEN
             System.out.println("[OK] ]");
             
             System.out.print("[ Aquardando pedidos de conexão    ..................  ");
@@ -28,6 +30,13 @@ public class TCPServer{
             String msg = new String(buf); // Mapeando vetor de bytes recebido para String
             
             System.out.println("  Mensagem recebida: "+ msg);
+            
+            String msgSend = "Olá, CLIENT!!!";
+            byte[] bufSend = msgSend.getBytes(); // Obtendo a respresntação em bytes da mensagem
+
+            System.out.print("[ Enviando mensagem    ..............................  ");
+            os.write(bufSend);
+            System.out.println("[OK] ]");
         }catch(Exception e){System.out.println(e);}    
         System.out.println("[ FIM ]");
     }
